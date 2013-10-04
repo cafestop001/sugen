@@ -72,8 +72,18 @@ public class CommodityJpaControllerTest {
         al.add("宝蓝色");
         Commodity commodity = new Commodity();
         commodity.setColors(al);
+        commodity.setSizes(genSize());
         instance.create(commodity);
 //        instance.destroy(commodity.getId());
+    }
+    
+    private List genSize(){
+        ArrayList<Size> sizes = new ArrayList<Size>();
+        Size size = new Size("均码", "|胸围,55");
+        sizes.add(size);
+        size = new Size("XL", "|胸围，60");
+        sizes.add(size);
+        return sizes;
     }
 
     /**

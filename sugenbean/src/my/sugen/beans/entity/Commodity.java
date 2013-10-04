@@ -3,20 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package my.sugen.beans.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.SEQUENCE;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import my.sugen.beans.SugenHelper;
 
 /**
@@ -25,12 +23,12 @@ import my.sugen.beans.SugenHelper;
  */
 @Entity
 public class Commodity implements Serializable {
-    
+
     //宝贝唯一编号
     @Id
-    @GeneratedValue(strategy=SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     //宝贝简单描述
     private String description;
     //搭配建议
@@ -47,10 +45,10 @@ public class Commodity implements Serializable {
     private String fabrics;
     //模特图地址
     private String modelImgsStr;
-    
+
     //实物图地址
     private String commodityImgsStr;
-    
+
     private String colorStr;
 
     public String getDealer() {
@@ -84,13 +82,13 @@ public class Commodity implements Serializable {
     public void setColorStr(String colorStr) {
         this.colorStr = colorStr;
     }
-    
+
     //指数
     private char resiliencyIdx; //弹性指数
     private char thicknessIdx; //厚薄指数
     private char styleIdx; //版型指数
     private char lengthIdx; //长度指数
-    
+
     //关联销售
     //搭配购买
     @OneToMany
@@ -98,13 +96,14 @@ public class Commodity implements Serializable {
     //推荐宝贝
     @OneToMany
     private Collection<Commodity> recommanded;
-    
+
     //尺寸信息
-    private HashMap<String, HashMap<String, Integer>> sizes;
+    @OneToMany(cascade = ALL)
+    private Collection<Size> sizes;
 
     public Commodity() {
     }
-    
+
     //getter and setter
     public long getId() {
         return id;
@@ -250,11 +249,12 @@ public class Commodity implements Serializable {
         this.recommanded = recommanded;
     }
 
-    public HashMap<String, HashMap<String, Integer>> getSizes() {
+    public Collection<Size> getSizes() {
         return sizes;
     }
 
-    public void setSizes(HashMap<String, HashMap<String, Integer>> sizes) {
+    public void setSizes(Collection<Size> sizes) {
         this.sizes = sizes;
     }
+
 }

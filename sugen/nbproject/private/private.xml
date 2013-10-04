@@ -2,9 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="sugen">
-            <file>file:/D:/workspace/superGenerator/sugen/src/my/sugen/Sugen.java</file>
-        </group>
         <group/>
+        <group name="sugen">
+            <file>file:/F:/workspace/github/sugen/sugen/src/my/sugen/gui/ICommodityPanel.java</file>
+            <file>file:/F:/workspace/github/sugen/sugen/src/my/sugen/gui/ISuGenFrame.java</file>
+            <file>file:/F:/workspace/github/sugen/sugen/src/my/sugen/gui/IVendorPanel.java</file>
+            <file>file:/F:/workspace/github/sugen/sugen/src/my/sugen/Sugen.java</file>
+        </group>
     </open-files>
 </project-private>

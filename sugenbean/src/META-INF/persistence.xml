@@ -3,6 +3,7 @@
   <persistence-unit name="sugenbeanPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>my.sugen.beans.entity.Commodity</class>
+    <class>my.sugen.beans.entity.Size</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sugen"/>
       <property name="javax.persistence.jdbc.password" value="sugen"/>

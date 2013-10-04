@@ -17,7 +17,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import my.sugen.beans.entity.exceptions.NonexistentEntityException;
-import my.sugen.beans.entity.exceptions.PreexistingEntityException;
 
 /**
  *
@@ -34,7 +33,7 @@ public class CommodityJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Commodity commodity) throws PreexistingEntityException, Exception {
+    public void create(Commodity commodity) {
         if (commodity.getRelated() == null) {
             commodity.setRelated(new ArrayList<Commodity>());
         }
@@ -45,13 +44,13 @@ public class CommodityJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ArrayList<Commodity> attachedRelated = new ArrayList<Commodity>();
+            Collection<Commodity> attachedRelated = new ArrayList<Commodity>();
             for (Commodity relatedCommodityToAttach : commodity.getRelated()) {
                 relatedCommodityToAttach = em.getReference(relatedCommodityToAttach.getClass(), relatedCommodityToAttach.getId());
                 attachedRelated.add(relatedCommodityToAttach);
             }
             commodity.setRelated(attachedRelated);
-            ArrayList<Commodity> attachedRecommanded = new ArrayList<Commodity>();
+            Collection<Commodity> attachedRecommanded = new ArrayList<Commodity>();
             for (Commodity recommandedCommodityToAttach : commodity.getRecommanded()) {
                 recommandedCommodityToAttach = em.getReference(recommandedCommodityToAttach.getClass(), recommandedCommodityToAttach.getId());
                 attachedRecommanded.add(recommandedCommodityToAttach);
@@ -67,11 +66,6 @@ public class CommodityJpaController implements Serializable {
                 recommandedCommodity = em.merge(recommandedCommodity);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findCommodity(commodity.getId()) != null) {
-                throw new PreexistingEntityException("Commodity " + commodity + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
